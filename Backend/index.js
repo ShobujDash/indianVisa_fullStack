@@ -15,7 +15,7 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 const userRouter = require("./routes/AuthRoute");
-const visaRoutes = require("./routes/visaRoutes.js");
+const visaRoutes = require("./routes/VisaRoutes");
 connectDB();
 
 // Security Middleware Implement
@@ -74,4 +74,3 @@ app.listen(PORT, () => {
   console.log(`App Run @${PORT}`);
 });
 
-// # MONGODB_URI = "mongodb+srv://shobujd6:shobujd6@cluster0.66erm.mongodb.net/fuil-station?retryWrites=true&w=majority&appName=Cluster0"
