@@ -109,7 +109,7 @@ const data = {
           url: "/himvai/authentication/visa-application",
         },
         {
-          title: "All Documents",
+          title: "Add Documents",
           url: "/himvai/authentication/visa-application/edit",
         },
       ],

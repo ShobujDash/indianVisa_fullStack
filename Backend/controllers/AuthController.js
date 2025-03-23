@@ -124,33 +124,56 @@ const logoutUser = (req, res) => {
 
 // Controller for creating a new user
 const createUser = async (req, res) => {
-  const { name, email, number ,password} = req.body; // Extract name, email, and number from request body
+ 
 
   try {
-    // Check if the user with the same email already exists
+    const { name, email, number, password } = req.body; // Extract name, email, and number from request body
+
+    if (!name || !password || !email) {
+      return res.json({ success: false, message: "Missing Details" });
+    }
+
+    // validatin email format
+    if (!validator.isEmail(email)) {
+      return res.json({ success: false, message: "enter a valid email" });
+    }
+
+    // validating strong password
+    if (password.length < 6) {
+      return res.json({ success: false, message: "enter a strong password" });
+    }
+
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "User with this email already exists.",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "User with this email already exists.",
+      });
     }
+
+    // hashing user password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create a new user instance
     const newUser = new UserModel({
       name,
       email,
       number,
-      password
+      password: hashedPassword,
     });
 
     // Save the new user to the database
     await newUser.save();
 
     // Respond with success message and the created user
-    res.status(201).json({success:true, message: "User created successfully.", user: newUser });
+    res
+      .status(201)
+      .json({
+        success: true,
+        message: "User created successfully.",
+        user: newUser,
+      });
   } catch (error) {
     console.error("Error creating user:", error);
     res
@@ -218,7 +241,19 @@ const getAllUsers = async (req, res, next) => {
 const updateUserAccount = async (req, res) => {
   try {
     const userId = req.params.id; // Get the user ID from the route parameter
-    const updateData = req.body;
+     const { name, email, number, password ,isAdmin} = req.body; // Extract name, email, and number from request body
+
+     // hashing user password
+     const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    
+    const updateData = {
+      name,
+      email,
+      number,
+      password: hashedPassword,
+      isAdmin,
+    };
 
     const user = await UserModel.findByIdAndUpdate(userId, updateData, {
       new: true,
