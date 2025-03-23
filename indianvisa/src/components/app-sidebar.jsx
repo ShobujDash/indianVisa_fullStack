@@ -66,10 +66,6 @@ const data = {
           title: "Dashboard",
           url: "/himvai/authentication/dashboard",
         },
-        {
-          title: "Graph",
-          url: "#",
-        },
       ],
     },
     {
@@ -132,18 +128,7 @@ const data = {
           url: "/himvai/authentication/payments/edit",
         },
       ],
-    },
-    {
-      title: "Add Documetns",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "Add Documents",
-          url: "/himvai/authentication/add-documents",
-        },
-      ],
-    },
+    }
   ],
   projects: [
     {

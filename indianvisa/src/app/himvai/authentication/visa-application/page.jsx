@@ -16,9 +16,8 @@ import { toast } from "react-toastify";
 export default function VisaDataTable() {
   const [visaData, setVisaData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
-  console.log(visaData)
 
   useEffect(() => {
     const fetchVisaData = async () => {
