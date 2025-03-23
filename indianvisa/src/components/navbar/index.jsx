@@ -19,7 +19,7 @@ export default function Navbar() {
 
   return (
     <nav className="p-4 bg-gray-900 text-white flex justify-between">
-      <h1 className="text-xl font-bold">Indian Visa Application</h1>
+      <h1 className="text-xl font-bold">{user && user?.name }</h1>
       {user ? (
         <button
           onClick={handleLogout}
