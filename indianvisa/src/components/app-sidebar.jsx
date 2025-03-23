@@ -75,41 +75,41 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "User Info",
+          title: "All User",
           url: "/himvai/authentication/user-info",
         },
         {
-          title: "Add/Edit Accounts",
+          title: "Add User",
           url: "/himvai/authentication/user-info/edit",
         },
       ],
     },
+    // {
+    //   title: "Applications",
+    //   url: "/applications-info",
+    //   icon: NotebookPen,
+    //   items: [
+    //     {
+    //       title: "All Applications Info",
+    //       url: "/himvai/authentication/applications-info",
+    //     },
+    //     {
+    //       title: "Add/Edit Applications Info",
+    //       url: "/himvai/authentication/applications-info/edit",
+    //     },
+    //   ],
+    // },
     {
-      title: "Applications",
-      url: "/applications-info",
-      icon: NotebookPen,
-      items: [
-        {
-          title: "All Applications Info",
-          url: "/himvai/authentication/applications-info",
-        },
-        {
-          title: "Add/Edit Applications Info",
-          url: "/himvai/authentication/applications-info/edit",
-        },
-      ],
-    },
-    {
-      title: "Visa Application",
+      title: "Documents",
       url: "/himvai/authentication/applications-info",
       icon: IdCard,
       items: [
         {
-          title: "All Applications Info",
+          title: "All Documents",
           url: "/himvai/authentication/visa-application",
         },
         {
-          title: "Add/Edit Applications Info",
+          title: "All Documents",
           url: "/himvai/authentication/visa-application/edit",
         },
       ],
@@ -124,11 +124,11 @@ const data = {
           url: "/himvai/authentication/payments",
         },
         {
-          title: "Add/Edit Payments",
+          title: "Add Payments",
           url: "/himvai/authentication/payments/edit",
         },
       ],
-    }
+    },
   ],
   projects: [
     {
