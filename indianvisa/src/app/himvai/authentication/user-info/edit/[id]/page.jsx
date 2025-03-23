@@ -33,7 +33,7 @@ export default function UpdateUser() {
             email: data?.user.email || "",
             number: data?.user.number || "",
             isAdmin: data?.user.isAdmin || false,
-            password:data?.user?.password || "",
+            password:"",
           });
         } else {
           console.error(data?.message);
