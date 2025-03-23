@@ -124,7 +124,7 @@ const logoutUser = (req, res) => {
 
 // Controller for creating a new user
 const createUser = async (req, res) => {
-  const { name, email, number } = req.body; // Extract name, email, and number from request body
+  const { name, email, number ,password} = req.body; // Extract name, email, and number from request body
 
   try {
     // Check if the user with the same email already exists
@@ -143,6 +143,7 @@ const createUser = async (req, res) => {
       name,
       email,
       number,
+      password
     });
 
     // Save the new user to the database
@@ -197,7 +198,7 @@ const getuserById = async (req, res) => {
 const getAllUsers = async (req, res, next) => {
   try {
     // Fetch all users from the database
-    const users = await UserModel.find().select("-password");
+    const users = await UserModel.find()
 
     // If no users are found
     if (!users || users.length === 0) {

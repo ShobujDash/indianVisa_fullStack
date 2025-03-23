@@ -10,6 +10,7 @@ export default function CreateUser() {
     name: "",
     email: "",
     number: "",
+    password:"",
   }); // To store form data separately
   const router = useRouter();
 
@@ -36,6 +37,7 @@ export default function CreateUser() {
           name: "",
           email: "",
           number: "",
+          password: "",
         });
       } else {
         toast.error(response?.data?.message);
@@ -44,6 +46,7 @@ export default function CreateUser() {
           name: "",
           email: "",
           number: "",
+          password: "",
         });
       }
     } catch (error) {
@@ -53,6 +56,7 @@ export default function CreateUser() {
         name: "",
         email: "",
         number: "",
+        password: "",
       });
     }
   };
@@ -73,7 +77,7 @@ export default function CreateUser() {
             name="name"
             value={formData?.name || ""}
             onChange={handleChange}
-            placeholder="Enter your full name"
+            placeholder="Enter user full name"
             className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
@@ -87,7 +91,7 @@ export default function CreateUser() {
             name="email"
             value={formData?.email || ""}
             onChange={handleChange}
-            placeholder="Enter your email address"
+            placeholder="Enter user email address"
             className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
@@ -101,7 +105,20 @@ export default function CreateUser() {
             name="number"
             value={formData?.number || ""}
             onChange={handleChange}
-            placeholder="Enter your contact number"
+            placeholder="Enter user contact number"
+            className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            User Password
+          </label>
+          <input
+            type="password"
+            name="password"
+            value={formData?.password || ""}
+            onChange={handleChange}
+            placeholder="Enter user password"
             className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
