@@ -2,7 +2,6 @@
 
 import axiosInstance from "@/lib/axiosInstance";
 import { createContext, useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 // 1️⃣ Create Context
 const AuthContext = createContext();
@@ -10,7 +9,8 @@ const AuthContext = createContext();
 // 2️⃣ Create Provider
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [isLoggedIn,setIsLoggedin] = useState(false);
+  const [isLoggedIn, setIsLoggedin] = useState(false);
+
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -24,12 +24,20 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
-
     fetchUserProfile();
   }, [isLoggedIn]);
 
-  const logout = () => {
-    setUser(null);
+  const logout = async () => {
+    try {
+      const { data } = await axiosInstance.get("/user/logout");
+      if (data?.success) {
+        setUser(null);
+        return data;
+      }
+    } catch (error) {
+      console.error("Failed to fetch user profile:", error);
+      return false;
+    }
   };
 
   return (

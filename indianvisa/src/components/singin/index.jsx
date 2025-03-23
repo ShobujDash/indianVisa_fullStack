@@ -14,6 +14,7 @@ import { useAuth } from "../../context/AuthContext";
 export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const { user, setIsLoggedin } = useAuth();
+  console.log("user",user)
   const router = useRouter();
   const [tab, setTab] = useState("login");
 
@@ -25,7 +26,9 @@ export default function AuthPage() {
   });
 
   useEffect(() => {
-    if (user) {
+    if (user?.isAdmin) {
+      router.push("/himvai/authentication");
+    } else if (user) {
       router.push("/add-document");
     }
   }, [user, router]);
@@ -39,15 +42,20 @@ export default function AuthPage() {
   };
 
   const onLogin = async (e) => {
-    console.log(loginData);
     e.preventDefault();
     setLoading(true);
     try {
       const response = await axiosInstance.post("/user/login", loginData);
       if (response?.data?.success) {
         toast.success(response?.data?.message);
-        setIsLoggedin(true);
-        router.push("/add-document");
+        setIsLoggedin(true); // Update user in context
+
+        // Redirect based on user role
+        if (response?.data?.user?.isAdmin) {
+          router.push("/himvai/authentication");
+        } else {
+          router.push("/add-document");
+        }
       } else {
         toast.error(response?.data?.message);
       }
@@ -66,7 +74,7 @@ export default function AuthPage() {
       const response = await axiosInstance.post("/user/register", signupData);
       if (response?.data?.success) {
         toast.success(response?.data?.message);
-        setIsLoggedin(true);
+        login(response.data.user); // Update user in context
         router.push("/add-document");
       } else {
         toast.error(response?.data?.message);
