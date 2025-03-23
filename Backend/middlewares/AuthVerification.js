@@ -4,7 +4,7 @@ const { DecodeToken } = require("../helpers/decodeToken");
 module.exports = (req, res, next) => {
   // console.log("Cookies:", req.cookies); // Cookies ডিবাগ করুন
   const token = req.cookies["token"]; // টোকেন বের করুন
-  console.log(token,"token")
+
 
   if (!token) {
     // console.log("Token not found in cookies");

@@ -15,6 +15,7 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 const userRouter = require("./routes/AuthRoute");
+const visaRoutes = require("./routes/visaRoutes.js");
 connectDB();
 
 // Security Middleware Implement
@@ -49,6 +50,7 @@ app.use(limiter);
 
 // Routing Implement
 app.use("/api/user", userRouter);
+app.use("/api/applicants", visaRoutes);
 
 // Undefined Route Implement
 app.use("*", (req, res) => {
@@ -69,7 +71,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log("App Run @3000");
+  console.log(`App Run @${PORT}`);
 });
 
 // # MONGODB_URI = "mongodb+srv://shobujd6:shobujd6@cluster0.66erm.mongodb.net/fuil-station?retryWrites=true&w=majority&appName=Cluster0"

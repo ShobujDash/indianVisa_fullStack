@@ -16,6 +16,7 @@ import {
   LayoutDashboard,
   NotebookPen,
   CreditCard,
+  IdCard,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main"
@@ -99,6 +100,21 @@ const data = {
         {
           title: "Add/Edit Applications Info",
           url: "/himvai/authentication/applications-info/edit",
+        },
+      ],
+    },
+    {
+      title: "Visa Application",
+      url: "/himvai/authentication/applications-info",
+      icon: IdCard,
+      items: [
+        {
+          title: "All Applications Info",
+          url: "/himvai/authentication/visa-application",
+        },
+        {
+          title: "Add/Edit Applications Info",
+          url: "/himvai/authentication/visa-application/edit",
         },
       ],
     },
