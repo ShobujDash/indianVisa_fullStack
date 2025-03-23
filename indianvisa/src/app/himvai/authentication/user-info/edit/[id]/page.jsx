@@ -12,6 +12,7 @@ export default function UpdateUser() {
     email: "",
     number: "",
     isAdmin: false,
+    password:"",
   }); // To store form data separately
 
   const router = useRouter();
@@ -32,6 +33,7 @@ export default function UpdateUser() {
             email: data?.user.email || "",
             number: data?.user.number || "",
             isAdmin: data?.user.isAdmin || false,
+            password:data?.user?.password || "",
           });
         } else {
           console.error(data?.message);
@@ -121,6 +123,19 @@ const onSubmit = async (e) => {
             type="text"
             name="number"
             value={formData?.number || ""}
+            onChange={handleChange}
+            placeholder="Enter your contact number"
+            className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Change Password
+          </label>
+          <input
+            type="text"
+            name="password"
+            value={formData?.password || ""}
             onChange={handleChange}
             placeholder="Enter your contact number"
             className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
