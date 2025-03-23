@@ -23,6 +23,7 @@ export default function AuthPage() {
     name: "",
     email: "",
     password: "",
+    number:""
   });
 
   useEffect(() => {
@@ -104,7 +105,7 @@ export default function AuthPage() {
             <TabsContent value="login">
               <form onSubmit={onLogin} className="space-y-3">
                 <div>
-                  <Label>Email</Label>
+                  <Label className="mb-1">Email</Label>
                   <Input
                     type="email"
                     name="email"
@@ -114,7 +115,7 @@ export default function AuthPage() {
                   />
                 </div>
                 <div>
-                  <Label>Password</Label>
+                  <Label className="mb-1">Password</Label>
                   <Input
                     type="password"
                     name="password"
@@ -137,7 +138,7 @@ export default function AuthPage() {
             <TabsContent value="signup">
               <form onSubmit={onRegister} className="space-y-3">
                 <div>
-                  <Label>Username</Label>
+                  <Label className="mb-1">Username</Label>
                   <Input
                     type="text"
                     name="name"
@@ -147,7 +148,7 @@ export default function AuthPage() {
                   />
                 </div>
                 <div>
-                  <Label>Email</Label>
+                  <Label className="mb-1">Email</Label>
                   <Input
                     type="email"
                     name="email"
@@ -157,7 +158,17 @@ export default function AuthPage() {
                   />
                 </div>
                 <div>
-                  <Label>Password</Label>
+                  <Label className="mb-1">Contact Number</Label>
+                  <Input
+                    type="number"
+                    name="number"
+                    placeholder="0150512....."
+                    value={signupData.number}
+                    onChange={handleSignupChange}
+                  />
+                </div>
+                <div>
+                  <Label className="mb-1">Password</Label>
                   <Input
                     type="password"
                     name="password"

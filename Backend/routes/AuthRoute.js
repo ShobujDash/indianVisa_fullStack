@@ -2,13 +2,14 @@ const express = require("express");
 const {
   registerUser,
   loginUser,
-  google,
   logoutUser,
   UserProfileDetails,
   deleteUserAccount,
   updateUserAccount,
   updateUser,
   getAllUsers,
+  getuserById,
+  createUser,
 } = require("../controllers/AuthController");
 const AuthVerification = require("../middlewares/AuthVerification");
 
@@ -16,16 +17,20 @@ const userRouter = express.Router();
 
 userRouter.post("/register", registerUser);
 userRouter.post("/login", loginUser);
-userRouter.post("/google", google);
 userRouter.get("/logout", logoutUser);
 
 userRouter.get("/profile", AuthVerification, UserProfileDetails);
-userRouter.get("/users", AuthVerification, getAllUsers);
+userRouter.get("/", getAllUsers);
+
+userRouter.get("/:id", getuserById);
 
 // Delete User
-userRouter.delete("/delete-account", AuthVerification, deleteUserAccount);
+userRouter.delete("/delete/:id", deleteUserAccount);
+
+// Create User
+userRouter.post("/create-user", createUser);
 
 // Update User
-userRouter.put("/user/:id", AuthVerification, updateUserAccount);
+userRouter.put("/update/:id", updateUserAccount);
 
 module.exports = userRouter;

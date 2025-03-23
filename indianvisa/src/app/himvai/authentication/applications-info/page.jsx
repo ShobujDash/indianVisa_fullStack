@@ -24,7 +24,7 @@ const applications = Array.from({ length: 30 }, (_, index) => ({
   amount: `BDT ${5000 + index * 100}.00`,
 }));
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 export default function VisaApplicationTable() {
   const [currentPage, setCurrentPage] = useState(1);

@@ -21,7 +21,7 @@ const paymentData = Array.from({ length: 30 }, (_, index) => ({
   status: index % 3 === 0 ? "Completed" : "Pending",
 }));
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 export default function PaymentDataTable() {
   const [currentPage, setCurrentPage] = useState(1);
