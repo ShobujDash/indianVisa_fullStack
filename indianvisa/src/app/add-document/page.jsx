@@ -1,9 +1,12 @@
 "use client";
+import { useAuth } from "@/context/AuthContext";
 import axiosInstance from "@/lib/axiosInstance";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function VisaForm() {
+  const { user } = useAuth();
+  const userid = user?._id;
   const [formData, setFormData] = useState({
     ivac: "",
     visaType: "",
@@ -16,6 +19,7 @@ export default function VisaForm() {
     paymentMethod: "",
     paymentPhone: "",
     attendees: Array(4).fill({ webFileNumber: "", fullName: "" }),
+    userId: userid,
   });
 
   const handleChange = (e, index = null) => {

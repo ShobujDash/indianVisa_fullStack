@@ -68,25 +68,25 @@ export default function AuthPage() {
     }
   };
 
-  const onRegister = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const response = await axiosInstance.post("/user/register", signupData);
-      if (response?.data?.success) {
-        toast.success(response?.data?.message);
-        login(response.data.user); // Update user in context
-        router.push("/add-document");
-      } else {
-        toast.error(response?.data?.message);
-      }
-    } catch (error) {
-      toast.error("Signup failed. Please try again.");
-      console.error("Signup error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const onRegister = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   try {
+  //     const response = await axiosInstance.post("/user/register", signupData);
+  //     if (response?.data?.success) {
+  //       toast.success(response?.data?.message);
+  //       login(response.data.user); // Update user in context
+  //       router.push("/add-document");
+  //     } else {
+  //       toast.error(response?.data?.message);
+  //     }
+  //   } catch (error) {
+  //     toast.error("Signup failed. Please try again.");
+  //     console.error("Signup error:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="flex min-h-screen items-center justify-center">
@@ -98,7 +98,7 @@ export default function AuthPage() {
           <Tabs defaultValue="login" onValueChange={(value) => setTab(value)}>
             <TabsList className="w-full flex justify-center">
               <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="signup">Signup</TabsTrigger>
+              {/* <TabsTrigger value="signup">Signup</TabsTrigger> */}
             </TabsList>
 
             {/* LOGIN */}
@@ -135,7 +135,7 @@ export default function AuthPage() {
             </TabsContent>
 
             {/* SIGNUP */}
-            <TabsContent value="signup">
+            {/* <TabsContent value="signup">
               <form onSubmit={onRegister} className="space-y-3">
                 <div>
                   <Label className="mb-1">Username</Label>
@@ -185,7 +185,7 @@ export default function AuthPage() {
                   {loading ? "Signing up..." : "Signup"}
                 </Button>
               </form>
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
         </CardContent>
       </Card>

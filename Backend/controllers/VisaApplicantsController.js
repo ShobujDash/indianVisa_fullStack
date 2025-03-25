@@ -7,7 +7,7 @@ exports.createVisaApplication = async function (req, res) {
     const visaApplication = await VisaApplication.create(req.body);
     res.status(201).json({success:true,message:"Saved Successfully!", visaApplication });
   } catch (err) {
-    res.status(400).json({success:fase,message:"Server Error!", error: err.message });
+    res.status(400).json({success:false,message:"Server Error!", error: err.message });
   }
 };
 
@@ -20,6 +20,29 @@ exports.getAllVisaApplications = async function (req, res) {
     res
       .status(500)
       .json({ success: false, message: "Server Error", error: err.message });
+  }
+};
+
+// Get visa applications by userId
+exports.getVisaApplicationsByUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Validate userId format
+    if (!userId.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ message: "Invalid userId format" });
+    }
+
+    const visaApplications = await VisaApplication.find({ userId });
+
+    if (!visaApplications.length) {
+      return res.status(404).json({success:false, message: "No visa applications found" });
+    }
+
+    res.status(200).json({success:true,message:"get succefully", visaApplications });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
