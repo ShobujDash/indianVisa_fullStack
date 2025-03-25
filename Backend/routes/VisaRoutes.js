@@ -8,6 +8,7 @@ router.get("/", visaController.getAllVisaApplications); // Read all
 router.get("/:id", visaController.getVisaApplicationById); // Read one
 router.put("/:id", visaController.updateVisaApplication); // Update
 router.delete("/:id", visaController.deleteVisaApplication); // Delete
+router.get("/getUser/:userId", visaController.getVisaApplicationsByUser);
 
 // Fetch applications by status
 router.get("/status/:status", visaController.getVisaApplicationsByStatus);

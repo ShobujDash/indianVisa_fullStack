@@ -7,7 +7,7 @@ var attendeeSchema = new mongoose.Schema({
 
 var visaApplicationSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    userId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
     ivac: { type: String, required: true },
     visaType: { type: String, required: true },
     webFileNumber: { type: String, required: true },
@@ -19,7 +19,7 @@ var visaApplicationSchema = new mongoose.Schema(
     paymentMethod: { type: String, required: true },
     paymentPhone: { type: String, required: true },
     attendees: [attendeeSchema],
-    status: { type: String},
+    status: { type: String },
   },
   { timestamps: true }
 );
