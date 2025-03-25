@@ -1,100 +1,66 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { Eye, Check, X, ArrowLeft } from "lucide-react";
+import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axiosInstance";
 import dayjs from "dayjs";
-import { Check, Eye, X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 export default function Page() {
   const [selected, setSelected] = useState([]);
   const [applications, setApplications] = useState([]);
   const route = useRouter();
 
-  console.log("selected", selected);
-
-   const fetchDocumentsData = async () => {
-     try {
-       const { data } = await axiosInstance.get("/applicants");
-       if (data?.success) {
-         setApplications(data?.applications);
-       } else {
-         toast.error(data?.message);
-       }
-     } catch (error) {
-       console.error("Error fetching data:", error);
-       toast.error("Error fetching visa applications");
-     }
-   };
-
   useEffect(() => {
-   
+    const fetchDocumentsData = async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          "/applicants/status/processing"
+        );
+        if (data?.success) {
+          setApplications(data?.applications);
+        } else {
+          toast.error(data?.message);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        toast.error("Error fetching visa applications");
+      }
+    };
 
     fetchDocumentsData();
   }, []);
 
-  // Function to update status before navigation
-  const handleStatusUpdate = async (newStatus,goRoute) => {
-    if (selected.length === 0) {
-      toast.error("Please select at least one application.");
-      return;
-    }
-
-    try {
-      const { data } = await axiosInstance.post("/applicants/update-status", {
-        ids: selected,
-        status: newStatus,
-      });
-
-      if (data?.success) {
-        toast.success("Status updated successfully!");
-        setSelected([]);
-        await fetchDocumentsData();
-        route.push(goRoute);
-      } else {
-        toast.error("Failed to update status.");
-      }
-    } catch (error) {
-      console.error("Error updating status:", error);
-      toast.error("Error updating visa applications");
-    }
-  };
-
   return (
     <div className="dark:bg-[#181818] dark:text-white bg-gray-100 text-black  min-h-screen">
       <div className="flex justify-between mb-4">
+        <button
+          onClick={() => route.push("/himvai/authentication/visa-application")}
+          className=" text-black dark:text-white px-2 py-1 text-sm rounded border cursor-pointer"
+        >
+          <ArrowLeft />
+        </button>
         <div className="flex gap-2">
-          <button className="bg-blue-600 text-white px-2 py-1 text-sm rounded cursor-pointer">
+          <button className="bg-white dark:bg-[#181818] dark:text-white text-black  px-2 py-1 text-sm border-2 dark:border-white border-black rounded cursor-pointer">
             Copy Failed to Open
           </button>
-          <button
-            onClick={() =>
-              route.push("/himvai/authentication/visa-application/processing")
-            }
-            className="bg-purple-600 text-white px-2 py-1 text-sm rounded cursor-pointer"
-          >
+          <button className="bg-purple-600 text-white px-2 py-1 text-sm rounded border-2 dark:border-white border-purple-700">
             Processing
           </button>
           <button
             onClick={() =>
-              handleStatusUpdate(
-                "open",
-                "/himvai/authentication/visa-application/open"
-              )
+              route.push("/himvai/authentication/visa-application/open")
             }
-            className="bg-yellow-500 text-white px-2 py-1 text-sm rounded cursor-pointer"
+            className="bg-white dark:bg-[#181818] dark:text-white text-black  px-2 py-1 text-sm border-2 dark:border-white border-black rounded cursor-pointer"
           >
             Open
           </button>
           <button
             onClick={() =>
-              handleStatusUpdate(
-                "failed",
-                "/himvai/authentication/visa-application/failed"
-              )
+              route.push("/himvai/authentication/visa-application/failed")
             }
-            className="bg-red-500 text-white px-2 py-1 text-sm rounded cursor-pointer"
+            className="bg-white dark:bg-[#181818] dark:text-white text-black  px-2 py-1 text-sm border-2 dark:border-white border-black rounded cursor-pointer"
           >
             Failed
           </button>
@@ -106,14 +72,11 @@ export default function Page() {
                 setSelected(applications.map((app) => app._id)); // Select all
               }
             }}
-            className="bg-gray-700 text-white px-2 py-1 text-sm rounded cursor-pointer"
+            className="bg-white dark:bg-[#181818] dark:text-white text-black  px-2 py-1 text-sm border-2 dark:border-white border-black rounded cursor-pointer"
           >
             Select All
           </button>
-          <button
-            onClick={() => handleStatusUpdate("processing")}
-            className="bg-green-500 text-white px-2 py-1 text-sm rounded cursor-pointer"
-          >
+          <button className="bg-white dark:bg-[#181818] dark:text-white text-black  px-2 py-1 text-sm border-2 dark:border-white border-black rounded cursor-pointer">
             Send to Processing
           </button>
         </div>

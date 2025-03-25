@@ -29,21 +29,6 @@ export default function VisaForm() {
     }
   };
 
-  // const handleSubmit = async (e) => {
-  //   console.log("fromdata", formData);
-  //   e.preventDefault();
-  //   try {
-  //     const response = await fetch("http://localhost:5000/api/applicants", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(formData),
-  //     });
-  //     if (response.ok) alert("Saved successfully!");
-  //   } catch (error) {
-  //     console.error("Error submitting form:", error);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     console.log("fromdata", formData);
     e.preventDefault();
