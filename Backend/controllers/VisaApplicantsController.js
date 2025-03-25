@@ -1,3 +1,4 @@
+const mongoose  = require("mongoose");
 const VisaApplication = require("../models/VisaApplicantsModel");
 
 // Create a new Visa Application
@@ -61,5 +62,64 @@ exports.deleteVisaApplication = async function (req, res) {
     res.status(200).json({ message: "Application deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+
+
+
+// Get Visa Applications by Status
+exports.getVisaApplicationsByStatus = async function (req, res) {
+  try {
+    const { status } = req.params;
+    const applications = await VisaApplication.find({ status });
+    res.status(200).json({ success: true, message: "Fetched successfully", applications });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Server Error", error: err.message });
+  }
+};
+
+// Update multiple Visa Applications' status
+
+exports.updateMultipleVisaApplicationStatus = async function (req, res) {
+  try {
+    const { ids, status } = req.body;
+
+    // Validate input
+    if (!ids || !Array.isArray(ids) || !status) {
+      return res.status(400).json({ success: false, message: "IDs and status are required and must be valid." });
+    }
+
+    // Convert IDs to MongoDB ObjectIds
+    const objectIds = ids.map((id) => {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        console.error(`Invalid ObjectId: ${id}`);
+        return null;
+      }
+      return new mongoose.Types.ObjectId(id);
+    }).filter(Boolean); // Remove invalid ones
+
+    console.log("Converted ObjectIds:", objectIds);
+
+    if (objectIds.length === 0) {
+      return res.status(400).json({ success: false, message: "Invalid or empty ID list." });
+    }
+
+    // Perform the update
+    const result = await VisaApplication.updateMany(
+      { _id: { $in: objectIds } }, 
+      { $set: { status } }
+    );
+
+    console.log("Update Result:", result);
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ success: false, message: "No matching records found." });
+    }
+
+    res.status(200).json({ success: true, message: "Status updated successfully!" });
+  } catch (err) {
+    console.error("Update Error:", err);
+    res.status(500).json({ success: false, message: "Server Error", error: err.message });
   }
 };

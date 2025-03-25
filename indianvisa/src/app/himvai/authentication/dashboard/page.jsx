@@ -9,7 +9,7 @@ import { ChartNoAxesColumnIncreasing, ReceiptCent, User } from "lucide-react";
 
 export default function Page({ children }) {
   return (
-    <div className="min-h-screen bg-[EAEDEF] dark:bg-[181818]">
+    <div className="min-h-screen bg-[EAEDEF] dark:bg-[#181818]">
       {/* Dashboard Layout */}
       <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         <Card className="bg-blue-300 dark:bg-[#181818]">
