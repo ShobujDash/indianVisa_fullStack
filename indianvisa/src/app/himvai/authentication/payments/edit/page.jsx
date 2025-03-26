@@ -54,7 +54,7 @@ export default function PaymentForm() {
   ];
 
   return (
-    <div className="max-w-xl mx-auto bg-white p-6 shadow-lg rounded-lg">
+    <div className="max-w-xl mx-auto bg-white dark:bg-[#181818] p-6 shadow-lg rounded-lg">
       <img
         src="/sslcommerz.png"
         alt="SSLCommerz"
@@ -81,13 +81,16 @@ export default function PaymentForm() {
         ))}
       </div>
 
-      <div className="bg-white p-4 shadow rounded-lg mb-4">
+      <div className="bg-white dark:bg-[#181818] dark:text-white p-4 shadow rounded-lg mb-4">
         <p>FEES: 800 BDT</p>
         <p>Convenience Fees: 24 BDT</p>
         <p>Payable Amount: 824 BDT</p>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            className="dark:bg-[#181818] dark:text-white"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
             <FormField
               control={form.control}
               name="mobileNumber"
