@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axiosInstance";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function Page() {
   const [selected, setSelected] = useState([]);
@@ -16,7 +17,7 @@ export default function Page() {
     const fetchDocumentsData = async () => {
       try {
         const { data } = await axiosInstance.get(
-          "/applicants/status/processing"
+          "/applicants/status/payment"
         );
         if (data?.success) {
           setApplications(data?.applications);
@@ -45,7 +46,12 @@ export default function Page() {
           <button className="bg-white dark:bg-[#181818] dark:text-white text-black  px-2 py-1 text-sm border-2 dark:border-white border-black rounded cursor-pointer">
             Copy Failed to Open
           </button>
-          <button className="bg-purple-600 text-white px-2 py-1 text-sm rounded border-2 dark:border-white border-purple-700">
+          <button
+            onClick={() =>
+              route.push("/himvai/authentication/visa-application/processing")
+            }
+            className="bg-white dark:bg-[#181818] dark:text-white text-black  px-2 py-1 text-sm border-2 dark:border-white border-black rounded cursor-pointer"
+          >
             Processing
           </button>
           <button
@@ -56,12 +62,7 @@ export default function Page() {
           >
             Open
           </button>
-          <button
-            onClick={() =>
-              route.push("/himvai/authentication/visa-application/payment")
-            }
-            className="bg-white dark:bg-[#181818] dark:text-white text-black  px-2 py-1 text-sm border-2 dark:border-white border-black rounded cursor-pointer"
-          >
+          <button className="bg-purple-600 text-white px-2 py-1 text-sm rounded border-2 dark:border-white border-purple-700">
             Payment
           </button>
           <button
@@ -142,7 +143,7 @@ export default function Page() {
                   </span>
                 </td>
                 <td className="p-2 border flex justify-center gap-2">
-                
+                  {app?.status === "payment" && <Button className="bg-blue-600 cursor-pointer">Pay Now</Button>}
                 </td>
               </tr>
             ))}

@@ -116,13 +116,10 @@ exports.updateMultipleVisaApplicationStatus = async function (req, res) {
     // Convert IDs to MongoDB ObjectIds
     const objectIds = ids.map((id) => {
       if (!mongoose.Types.ObjectId.isValid(id)) {
-        console.error(`Invalid ObjectId: ${id}`);
         return null;
       }
       return new mongoose.Types.ObjectId(id);
     }).filter(Boolean); // Remove invalid ones
-
-    console.log("Converted ObjectIds:", objectIds);
 
     if (objectIds.length === 0) {
       return res.status(400).json({ success: false, message: "Invalid or empty ID list." });
@@ -133,8 +130,6 @@ exports.updateMultipleVisaApplicationStatus = async function (req, res) {
       { _id: { $in: objectIds } }, 
       { $set: { status } }
     );
-
-    console.log("Update Result:", result);
 
     if (result.modifiedCount === 0) {
       return res.status(404).json({ success: false, message: "No matching records found." });

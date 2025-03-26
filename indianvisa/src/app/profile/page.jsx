@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import axiosInstance from "@/lib/axiosInstance";
 import dayjs from "dayjs";
@@ -117,15 +118,14 @@ export default function Page() {
                   </span>
                 </td>
                 <td className="p-2 border flex justify-center gap-2">
-                  <button className="bg-blue-500 text-white px-1 py-1 rounded">
-                    <Eye className="w-4 h-4" />
-                  </button>
-                  <button className="bg-green-500 text-white px-1 py-1 rounded">
-                    <Check className="w-4 h-4" />
-                  </button>
-                  <button className="bg-red-500 text-white px-1 py-1 rounded">
-                    <X className="w-4 h-4" />
-                  </button>
+                  {app?.status === "payment" && (
+                    <Button
+                      onClick={() => route.push("/paynow")}
+                      className="bg-blue-600 cursor-pointer"
+                    >
+                      Pay Now
+                    </Button>
+                  )}
                 </td>
               </tr>
             ))}
