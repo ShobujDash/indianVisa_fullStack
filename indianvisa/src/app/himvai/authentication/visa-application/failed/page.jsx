@@ -61,6 +61,14 @@ export default function Page() {
           >
             Open
           </button>
+          <button
+            onClick={() =>
+              route.push("/himvai/authentication/visa-application/payment")
+            }
+            className="bg-white dark:bg-[#181818] dark:text-white text-black  px-2 py-1 text-sm border-2 dark:border-white border-black rounded cursor-pointer"
+          >
+            Payment
+          </button>
           <button className="bg-red-500 text-white px-2 py-1 text-sm rounded border-2 dark:border-white border-red-600">
             Failed
           </button>
@@ -134,15 +142,7 @@ export default function Page() {
                   </span>
                 </td>
                 <td className="p-2 border flex justify-center gap-2">
-                  <button className="bg-blue-500 text-white px-1 py-1 rounded">
-                    <Eye className="w-4 h-4" />
-                  </button>
-                  <button className="bg-green-500 text-white px-1 py-1 rounded">
-                    <Check className="w-4 h-4" />
-                  </button>
-                  <button className="bg-red-500 text-white px-1 py-1 rounded">
-                    <X className="w-4 h-4" />
-                  </button>
+                 
                 </td>
               </tr>
             ))}

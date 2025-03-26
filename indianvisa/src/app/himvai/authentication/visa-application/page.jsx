@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import axiosInstance from "@/lib/axiosInstance";
 import dayjs from "dayjs";
 import { Check, Eye, X } from "lucide-react";
@@ -90,6 +91,17 @@ export default function Page() {
           <button
             onClick={() =>
               handleStatusUpdate(
+                "payment",
+                "/himvai/authentication/visa-application/payment"
+              )
+            }
+            className="bg-green-600 text-white px-2 py-1 text-sm rounded cursor-pointer"
+          >
+            Payment
+          </button>
+          <button
+            onClick={() =>
+              handleStatusUpdate(
                 "failed",
                 "/himvai/authentication/visa-application/failed"
               )
@@ -125,9 +137,19 @@ export default function Page() {
           <thead>
             <tr className="dark:bg-gray-700 bg-gray-100">
               <th className="p-2 border">
-                <input type="checkbox" />
+                <input
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelected(applications.map((app) => app._id)); // Select all
+                    } else {
+                      setSelected([]); // Unselect all
+                    }
+                  }}
+                  type="checkbox"
+                />
               </th>
               <th className="p-2 border">ID</th>
+              <th className="p-2 border">Number</th>
               <th className="p-2 border">Name</th>
               <th className="p-2 border">Visa Type</th>
               <th className="p-2 border">Submission Date</th>
@@ -152,6 +174,7 @@ export default function Page() {
                   />
                 </td>
                 <td className="p-2 border text-sm">{app?._id}</td>
+                <td className="p-2 border text-sm">{app?.paymentPhone}</td>
                 <td className="p-2 border text-sm">{app?.fullName}</td>
                 <td className="p-2 border text-sm">{app?.visaType}</td>
                 <td className="p-2 border text-sm">
@@ -171,15 +194,16 @@ export default function Page() {
                   </span>
                 </td>
                 <td className="p-2 border flex justify-center gap-2">
-                  <button className="bg-blue-500 text-white px-1 py-1 rounded">
-                    <Eye className="w-4 h-4" />
-                  </button>
-                  <button className="bg-green-500 text-white px-1 py-1 rounded">
-                    <Check className="w-4 h-4" />
-                  </button>
-                  <button className="bg-red-500 text-white px-1 py-1 rounded">
-                    <X className="w-4 h-4" />
-                  </button>
+                  {app?.status === "payment" && (
+                    <Button
+                      onClick={() =>
+                        route.push("/himvai/authentication/paynow")
+                      }
+                      className="bg-blue-600 cursor-pointer"
+                    >
+                      Pay Now
+                    </Button>
+                  )}
                 </td>
               </tr>
             ))}
